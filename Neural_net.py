@@ -89,9 +89,6 @@ Y = sigmoid_derivative(T)
 plt.plot(T, Y)
 plt.show()
 
-
-
-
 '''
 Spójrzmy sobie na nasze dane
 '''
@@ -210,7 +207,7 @@ for _ in range(iterations):
     
     zbierzmy dane co np. 5 iteracji, umieśćmy je w tablicy i przedstawmy je poza pętlą treningową na wykresie
     
-    zbieramy całkowity błąd z przewidywania każdego punktu
+    zbieramy całkowity błąd z przewidywania wszystkich punktów
     '''
 
     if _ % 20 == 0:  # tutaj jest co 20 iteracji
@@ -223,7 +220,6 @@ for _ in range(iterations):
             # print(p, pred, cst)
             total_cost += cst
         cost_table.append(total_cost)
-
 
 
 '''
