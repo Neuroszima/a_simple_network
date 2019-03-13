@@ -245,3 +245,22 @@ unknown_point_pred = unknown_point[0]*w1 + unknown_point[1]*w2 + b
 unknown_point_pred = sigmoid(unknown_point_pred)
 print('\n and what about mystery flower?')
 print(unknown_point, unknown_point_pred)
+
+color_un = 'red'
+if unknown_point_pred < 0.5:
+    color_un = 'blue'
+
+print("it's : " + color)
+plt.scatter(unknown_point[0], unknown_point[1], c=color)
+for point in values_from_tutorial:
+    x = point[0]
+    y = point[1]
+    color = 'red'
+    if point[2] == 0:
+        color = 'blue'
+    else:
+        pass
+    plt.scatter(x, y, c=color)
+
+plt.show()
+
