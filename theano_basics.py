@@ -200,3 +200,66 @@ plt.show()
 
 print(logistics.maker.fgraph.outputs)
 pp(logistics.maker.fgraph.outputs[0])
+
+
+'''
+Back to the basics
+
+How to set a default value for a variable in theano function?
+
+it isn't that hard as it looks, just use the "In" class
+
+"In" from theano accepts a variable and a "value=" which initializes default variable
+if not present
+
+You can think of a "In(variable_name, value=default_value)" class as an "Input" to a function
+
+We will also use a "T.dscalars" macro, which creates multiple variables in one line, unlike the
+"T.dscalar"
+'''
+
+from theano import In
+
+x5, y5 = T.dscalars('x5', 'y5')
+z5 = x5 + y5
+func5 = function([x5, In(y5, value=4)], z5)
+print(func5(32))
+print(func5(20, 56.7))
+
+assert func5(25) == 29
+
+
+'''
+and how to share a value between theano functions?
+
+you can allocate memory space that will be accessible from any theano function, even after
+it finishes work
+
+the additional "set_value()" and "get_value()" help show and modify shared varaible's contents without a need of creting
+a function
+
+functions use shared variables in slightly different way than regular variables; we have to pass the in "updates" list
+declaring what we want to do with the variable
+'''
+
+from theano import shared
+
+state = shared(0)
+inc = T.iscalar('inc')
+accumulator = function([inc], state, updates=[(state, state+inc)])
+
+print(state.get_value())
+accumulator(1)
+print(state.get_value())
+accumulator(300)
+print(state.get_value())
+state.set_value(-1)
+accumulator(3)
+print(state.get_value())
+
+decrementor = function([inc], state, updates=[(state, state-inc)])
+decrementor(2)
+print(state.get_value())
+
+
+
